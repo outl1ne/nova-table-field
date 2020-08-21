@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="relative rounded-lg rounded-b-lg bg-30 bg-clip border border-60"
-    :class="{ 'mr-12': editMode && deleteRowEnabled }"
-  >
+  <div class="relative bg-30 bg-clip border border-60" :class="{ 'mr-12': editMode && deleteRowEnabled }">
     <slot />
   </div>
 </template>

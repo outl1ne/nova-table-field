@@ -220,53 +220,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(11)
-/* template */
-var __vue_template__ = __webpack_require__(12)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/FormFields/KeyValueHeader.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ce0b4a14", Component.options)
-  } else {
-    hotAPI.reload("data-v-ce0b4a14", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 2 */,
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -385,10 +339,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FormFields_KeyValueItem__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FormFields_KeyValueItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__FormFields_KeyValueItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueHeader__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueHeader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueHeader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FormFields_KeyValueTable__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FormFields_KeyValueTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__FormFields_KeyValueTable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueTable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueTable__);
 //
 //
 //
@@ -401,9 +353,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-
 
 
 
@@ -411,7 +360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['resource', 'resourceName', 'resourceId', 'field'],
 
-  components: { KeyValueTable: __WEBPACK_IMPORTED_MODULE_2__FormFields_KeyValueTable___default.a, KeyValueHeader: __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueHeader___default.a, KeyValueItem: __WEBPACK_IMPORTED_MODULE_0__FormFields_KeyValueItem___default.a },
+  components: { KeyValueTable: __WEBPACK_IMPORTED_MODULE_1__FormFields_KeyValueTable___default.a, KeyValueItem: __WEBPACK_IMPORTED_MODULE_0__FormFields_KeyValueItem___default.a },
 
   data: function data() {
     return { theData: [] };
@@ -435,24 +384,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_autosize__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_autosize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_autosize__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -519,24 +450,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   mounted: function mounted() {
-    __WEBPACK_IMPORTED_MODULE_0_autosize___default()(this.$refs.keyField);
-    __WEBPACK_IMPORTED_MODULE_0_autosize___default()(this.$refs.valueField);
+    __WEBPACK_IMPORTED_MODULE_0_autosize___default()(this.$refs.columnFields);
   },
 
 
   methods: {
-    handleKeyFieldFocus: function handleKeyFieldFocus() {
-      this.$refs.keyField.select();
-    },
-    handleValueFieldFocus: function handleValueFieldFocus() {
-      this.$refs.valueField.select();
+    handleColumnFieldFocus: function handleColumnFieldFocus(index) {
+      this.$refs.columnFields[index].select();
     }
   },
 
   computed: {
-    isNotObject: function isNotObject() {
-      return !(this.item.value instanceof Object);
-    },
     isEditable: function isEditable() {
       return !this.readOnly && !this.disabled;
     }
@@ -847,148 +771,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.isNotObject
-    ? _c("div", { staticClass: "flex items-center key-value-item" }, [
-        _c(
+  return _c("div", { staticClass: "flex items-center key-value-item" }, [
+    _c(
+      "div",
+      { staticClass: "flex flex-grow border-b border-50 key-value-fields" },
+      _vm._l(_vm.item.value, function(column, index) {
+        return _c(
           "div",
-          { staticClass: "flex flex-grow border-b border-50 key-value-fields" },
+          {
+            key: "column-" + index,
+            staticClass: "flex-grow border-l border-50",
+            on: {
+              click: function($event) {
+                return _vm.handleColumnFieldFocus(index)
+              }
+            }
+          },
+          [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.item.value[index],
+                  expression: "item.value[index]"
+                }
+              ],
+              key: column.id,
+              ref: "columnFields",
+              refInFor: true,
+              staticClass:
+                "font-mono text-sm block min-h-input w-full foarm-control form-input form-input-row py-4 text-90",
+              class: {
+                "bg-white": !_vm.isEditable,
+                "hover:bg-20 focus:bg-white": _vm.isEditable
+              },
+              attrs: {
+                disabled: !_vm.isEditable,
+                dusk: "key-value-value-" + index,
+                type: "text"
+              },
+              domProps: { value: _vm.item.value[index] },
+              on: {
+                focus: function($event) {
+                  return _vm.handleColumnFieldFocus(index)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.item.value, index, $event.target.value)
+                }
+              }
+            })
+          ]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _vm.isEditable && _vm.canDeleteRow
+      ? _c(
+          "div",
+          {
+            staticClass: "flex justify-center h-11 w-11 absolute",
+            staticStyle: { right: "-50px" }
+          },
           [
             _c(
-              "div",
+              "button",
               {
-                staticClass: "w-48 cursor-text",
-                class: { "bg-30": _vm.readOnlyKeys || !_vm.isEditable }
-              },
-              [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.item.key,
-                      expression: "item.key"
-                    }
-                  ],
-                  ref: "keyField",
-                  staticClass:
-                    "font-mono text-sm resize-none block min-h-input w-full form-control form-input form-input-row py-4 text-90",
-                  class: {
-                    "bg-white": !_vm.isEditable || _vm.readOnlyKeys,
-                    "hover:bg-20 focus:bg-white":
-                      _vm.isEditable && !_vm.readOnlyKeys
-                  },
-                  staticStyle: { "background-clip": "border-box" },
-                  attrs: {
-                    disabled: !_vm.isEditable || _vm.readOnlyKeys,
-                    dusk: "key-value-key-" + _vm.index,
-                    type: "text"
-                  },
-                  domProps: { value: _vm.item.key },
-                  on: {
-                    focus: _vm.handleKeyFieldFocus,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.item, "key", $event.target.value)
-                    }
+                staticClass:
+                  "flex appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline",
+                attrs: { tabindex: "-1", title: "Delete", type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("remove-row", _vm.item.id)
                   }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "flex-grow border-l border-50",
-                on: { click: _vm.handleValueFieldFocus }
+                }
               },
-              [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.item.value,
-                      expression: "item.value"
-                    }
-                  ],
-                  ref: "valueField",
-                  staticClass:
-                    "font-mono text-sm block min-h-input w-full form-control form-input form-input-row py-4 text-90",
-                  class: {
-                    "bg-white": !_vm.isEditable,
-                    "hover:bg-20 focus:bg-white": _vm.isEditable
-                  },
-                  attrs: {
-                    disabled: !_vm.isEditable,
-                    dusk: "key-value-value-" + _vm.index,
-                    type: "text"
-                  },
-                  domProps: { value: _vm.item.value },
-                  on: {
-                    focus: _vm.handleValueFieldFocus,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.item, "value", $event.target.value)
-                    }
-                  }
-                })
-              ]
+              [_c("icon")],
+              1
             )
           ]
-        ),
-        _vm._v(" "),
-        _vm.isEditable && _vm.canDeleteRow
-          ? _c(
-              "div",
-              {
-                staticClass: "flex justify-center h-11 w-11 absolute",
-                staticStyle: { right: "-50px" }
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn dim cursor-pointer rounded-lg mx-auto text-primary rounded-b-lg flex justify-center",
-                    attrs: { tabindex: "-1", type: "button" }
-                  },
-                  [
-                    _c("icon", {
-                      attrs: {
-                        height: "24",
-                        type: "add",
-                        "view-box": "0 0 24 24",
-                        width: "24"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "flex appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline",
-                    attrs: { tabindex: "-1", title: "Delete", type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.$emit("remove-row", _vm.item.id)
-                      }
-                    }
-                  },
-                  [_c("icon")],
-                  1
-                )
-              ]
-            )
-          : _vm._e()
-      ])
-    : _vm._e()
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1001,86 +869,13 @@ if (false) {
 }
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    keyLabel: {
-      type: String
-    },
-    valueLabel: {
-      type: String
-    }
-  }
-});
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "bg-30 rounded-t-lg flex border-b border-50" },
-    [
-      _c(
-        "div",
-        {
-          staticClass:
-            "bg-clip w-48 uppercase font-bold text-xs text-80 tracking-wide px-3 py-3"
-        },
-        [_vm._v("\n    " + _vm._s(_vm.keyLabel) + "\n  ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "bg-clip flex-grow uppercase font-bold text-xs text-80 tracking-wide px-3 py-3 border-l border-50"
-        },
-        [_vm._v("\n    " + _vm._s(_vm.valueLabel) + "\n  ")]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-ce0b4a14", module.exports)
-  }
-}
-
-/***/ }),
+/* 11 */,
+/* 12 */,
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
 //
 //
 //
@@ -1112,8 +907,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass:
-        "relative rounded-lg rounded-b-lg bg-30 bg-clip border border-60",
+      staticClass: "relative bg-30 bg-clip border border-60",
       class: { "mr-12": _vm.editMode && _vm.deleteRowEnabled }
     },
     [_vm._t("default")],
@@ -1154,26 +948,18 @@ var render = function() {
                   attrs: { "edit-mode": false }
                 },
                 [
-                  _c("KeyValueHeader", {
-                    attrs: {
-                      "key-label": _vm.field.keyLabel,
-                      "value-label": _vm.field.valueLabel
-                    }
-                  }),
-                  _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "bg-white overflow-hidden key-value-items" },
                     _vm._l(_vm.theData, function(item) {
                       return _c("KeyValueItem", {
                         key: item.key,
-                        attrs: { item: item, disabled: true }
+                        attrs: { disabled: true, item: item }
                       })
                     }),
                     1
                   )
-                ],
-                1
+                ]
               )
             : _vm._e()
         ],
@@ -1250,12 +1036,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_nova__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__KeyValueItem__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__KeyValueItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__KeyValueItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__KeyValueHeader__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__KeyValueHeader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__KeyValueHeader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__KeyValueTable__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__KeyValueTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__KeyValueTable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__KeyValueTable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__KeyValueTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__KeyValueTable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autosize__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_autosize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_autosize__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1307,7 +1112,7 @@ function guid() {
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_0_laravel_nova__["HandlesValidationErrors"], __WEBPACK_IMPORTED_MODULE_0_laravel_nova__["FormField"]],
 
-  components: { KeyValueTable: __WEBPACK_IMPORTED_MODULE_3__KeyValueTable___default.a, KeyValueHeader: __WEBPACK_IMPORTED_MODULE_2__KeyValueHeader___default.a, KeyValueItem: __WEBPACK_IMPORTED_MODULE_1__KeyValueItem___default.a },
+  components: { KeyValueTable: __WEBPACK_IMPORTED_MODULE_2__KeyValueTable___default.a, KeyValueItem: __WEBPACK_IMPORTED_MODULE_1__KeyValueItem___default.a },
 
   data: function data() {
     return { theData: [] };
@@ -1321,8 +1126,7 @@ function guid() {
         value: value
       };
     });
-
-    if (this.theData.length == 0) {
+    if (this.theData.length === 0) {
       this.addRow();
     }
   },
@@ -1345,8 +1149,20 @@ function guid() {
       var _this = this;
 
       return _.tap(guid(), function (id) {
-        _this.theData = [].concat(_toConsumableArray(_this.theData), [{ id: id, key: '', value: '' }]);
+        _this.theData = [].concat(_toConsumableArray(_this.theData), [{ id: id, key: '', value: Array(_this.columnCount).join('.').split('.') }]);
         return id;
+      });
+    },
+
+
+    /**
+     * Add a column to the table.
+     */
+    addColumn: function addColumn() {
+      var _this2 = this;
+
+      this.theData.forEach(function (_, index) {
+        _this2.theData[index].value.push('');
       });
     },
 
@@ -1363,13 +1179,32 @@ function guid() {
      * Remove the row from the table.
      */
     removeRow: function removeRow(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _.tap(_.findIndex(this.theData, function (row) {
-        return row.id == id;
+        return row.id === id;
       }), function (index) {
-        return _this2.theData.splice(index, 1);
+        return _this3.theData.splice(index, 1);
       });
+    },
+
+
+    /**
+     * Remove the column from the table.
+     */
+    removeColumn: function removeColumn(index) {
+      return this.theData.map(function (data) {
+        data.value.splice(index - 1, 1);
+        return data;
+      });
+    },
+
+
+    /**
+     * Add a column to the row and select its last field.
+     */
+    addColumnAndSelect: function addColumnAndSelect() {
+      return this.selectColumn(this.addColumn());
     },
 
 
@@ -1377,10 +1212,24 @@ function guid() {
      * Select the first field in a row with the given ref ID.
      */
     selectRow: function selectRow(refId) {
-      var _this3 = this;
+      var _this4 = this;
 
       return this.$nextTick(function () {
-        _this3.$refs[refId][0].$refs.keyField.select();
+        _this4.$refs[refId][0].$refs.columnFields[0].select();
+      });
+    },
+
+
+    /**
+     * Select the last field in a row with the given ref ID.
+     */
+    selectColumn: function selectColumn() {
+      var _this5 = this;
+
+      return this.$nextTick(function () {
+        Object.values(_this5.$refs).map(function (ref) {
+          return __WEBPACK_IMPORTED_MODULE_3_autosize___default()(ref[0].$refs.columnFields);
+        })[0].slice(-1)[0].select();
       });
     }
   },
@@ -1395,6 +1244,9 @@ function guid() {
       }).reject(function (row) {
         return row === undefined;
       }).fromPairs().value();
+    },
+    columnCount: function columnCount() {
+      return this.theData[0] ? this.theData[0].value.length : 1;
     }
   }
 });
@@ -28837,13 +28689,6 @@ var render = function() {
               }
             },
             [
-              _c("KeyValueHeader", {
-                attrs: {
-                  "key-label": _vm.field.keyLabel,
-                  "value-label": _vm.field.valueLabel
-                }
-              }),
-              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "bg-white overflow-hidden key-value-items" },
@@ -28869,42 +28714,94 @@ var render = function() {
                 }),
                 1
               )
-            ],
-            1
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "relative mr-12 mt-3 flex" },
+            _vm._l(_vm.columnCount, function(n) {
+              return _c(
+                "div",
+                { staticClass: "flex flex-grow justify-center" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline",
+                      attrs: {
+                        tabindex: "-1",
+                        title: "Delete",
+                        type: "button"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.removeColumn(n)
+                        }
+                      }
+                    },
+                    [_c("icon")],
+                    1
+                  )
+                ]
+              )
+            }),
+            0
           ),
           _vm._v(" "),
           !_vm.field.readonly && !_vm.field.readonlyKeys && _vm.field.canAddRow
-            ? _c(
-                "div",
-                { staticClass: "mr-12" },
-                [
-                  _c(
-                    "buttons",
-                    {
-                      staticClass:
-                        "btn dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex justify-center",
-                      attrs: { type: "button" },
-                      on: { click: _vm.addRowAndSelect }
-                    },
-                    [
-                      _c("icon", {
-                        attrs: {
-                          height: "24",
-                          type: "add",
-                          "view-box": "0 0 24 24",
-                          width: "24"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-1" }, [
-                        _vm._v(_vm._s(_vm.field.actionText))
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
+            ? _c("div", { staticClass: "mr-12 flex" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center",
+                    attrs: { type: "button" },
+                    on: { click: _vm.addRowAndSelect }
+                  },
+                  [
+                    _c("icon", {
+                      attrs: {
+                        height: "24",
+                        type: "add",
+                        "view-box": "0 0 24 24",
+                        width: "24"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-1" }, [
+                      _vm._v(_vm._s(_vm.field.actionText))
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center",
+                    attrs: { tabindex: "-1", type: "button" },
+                    on: { click: _vm.addColumnAndSelect }
+                  },
+                  [
+                    _c("icon", {
+                      attrs: {
+                        height: "24",
+                        type: "add",
+                        "view-box": "0 0 24 24",
+                        width: "24"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "ml-1" }, [
+                      _vm._v(_vm._s("Add Column"))
+                    ])
+                  ],
+                  1
+                )
+              ])
             : _vm._e()
         ],
         1

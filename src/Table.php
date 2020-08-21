@@ -66,10 +66,10 @@ class Table extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  string  $requestAttribute
-     * @param  object  $model
-     * @param  string  $attribute
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param string $requestAttribute
+     * @param object $model
+     * @param string $attribute
      * @return void
      */
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
@@ -82,7 +82,7 @@ class Table extends Field
     /**
      * The label that should be used for the key table heading.
      *
-     * @param  string  $label
+     * @param string $label
      * @return $this
      */
     public function keyLabel($label)
@@ -95,7 +95,7 @@ class Table extends Field
     /**
      * The label that should be used for the value table heading.
      *
-     * @param  string  $label
+     * @param string $label
      * @return $this
      */
     public function valueLabel($label)
@@ -108,7 +108,7 @@ class Table extends Field
     /**
      * The label that should be used for the add row button.
      *
-     * @param  string  $label
+     * @param string $label
      * @return $this
      */
     public function actionText($label)
@@ -121,7 +121,7 @@ class Table extends Field
     /**
      * Set the callback used to determine if the keys are readonly.
      *
-     * @param  \Closure|bool  $callback
+     * @param \Closure|bool $callback
      * @return $this
      */
     public function disableEditingKeys($callback = true)
@@ -134,7 +134,7 @@ class Table extends Field
     /**
      * Determine if the keys are readonly.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return bool
      */
     public function readonlyKeys(NovaRequest $request)
