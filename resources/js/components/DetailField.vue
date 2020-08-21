@@ -3,7 +3,7 @@
     <template slot="value">
       <KeyValueTable :edit-mode="false" class="overflow-hidden" v-if="theData.length > 0">
         <div class="bg-white overflow-hidden key-value-items">
-          <KeyValueItem :disabled="true" :item="item" :key="item.key" v-for="item in theData" />
+          <KeyValueItem :disabled="true" :key="index" :row="row" v-for="(row, index) in theData" />
         </div>
       </KeyValueTable>
     </template>
@@ -22,10 +22,7 @@ export default {
   data: () => ({ theData: [] }),
 
   created() {
-    this.theData = _.map(this.field.value || {}, (value, key) => ({
-      key,
-      value,
-    }));
+    this.theData = _.map(this.field.value || {}, cells => ({ cells }));
   },
 };
 </script>

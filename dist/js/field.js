@@ -367,11 +367,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   created: function created() {
-    this.theData = _.map(this.field.value || {}, function (value, key) {
-      return {
-        key: key,
-        value: value
-      };
+    this.theData = _.map(this.field.value || {}, function (cells) {
+      return { cells: cells };
     });
   }
 });
@@ -423,14 +420,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     index: Number,
-    item: Object,
+    row: Object,
     disabled: {
       type: Boolean,
       default: false
@@ -450,6 +446,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   mounted: function mounted() {
+    console.log('row', this.row);
     __WEBPACK_IMPORTED_MODULE_0_autosize___default()(this.$refs.columnFields);
   },
 
@@ -775,7 +772,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "flex flex-grow border-b border-50 key-value-fields" },
-      _vm._l(_vm.item.value, function(column, index) {
+      _vm._l(_vm.row.cells, function(cell, index) {
         return _c(
           "div",
           {
@@ -793,11 +790,11 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.item.value[index],
-                  expression: "item.value[index]"
+                  value: _vm.row.cells[index],
+                  expression: "row.cells[index]"
                 }
               ],
-              key: column.id,
+              key: cell.id,
               ref: "columnFields",
               refInFor: true,
               staticClass:
@@ -808,10 +805,9 @@ var render = function() {
               },
               attrs: {
                 disabled: !_vm.isEditable,
-                dusk: "key-value-value-" + index,
-                type: "text"
+                dusk: "key-value-value-" + index
               },
-              domProps: { value: _vm.item.value[index] },
+              domProps: { value: _vm.row.cells[index] },
               on: {
                 focus: function($event) {
                   return _vm.handleColumnFieldFocus(index)
@@ -820,7 +816,7 @@ var render = function() {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.item.value, index, $event.target.value)
+                  _vm.$set(_vm.row.cells, index, $event.target.value)
                 }
               }
             })
@@ -846,7 +842,7 @@ var render = function() {
                 attrs: { tabindex: "-1", title: "Delete", type: "button" },
                 on: {
                   click: function($event) {
-                    return _vm.$emit("remove-row", _vm.item.id)
+                    return _vm.$emit("remove-row", _vm.row.id)
                   }
                 }
               },
@@ -951,10 +947,10 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "bg-white overflow-hidden key-value-items" },
-                    _vm._l(_vm.theData, function(item) {
+                    _vm._l(_vm.theData, function(row, index) {
                       return _c("KeyValueItem", {
-                        key: item.key,
-                        attrs: { disabled: true, item: item }
+                        key: index,
+                        attrs: { disabled: true, row: row }
                       })
                     }),
                     1
@@ -1119,11 +1115,10 @@ function guid() {
   },
 
   mounted: function mounted() {
-    this.theData = _.map(this.value || {}, function (value, key) {
+    this.theData = _.map(this.cells || {}, function (cells) {
       return {
         id: guid(),
-        key: key,
-        value: value
+        cells: cells
       };
     });
     if (this.theData.length === 0) {
@@ -1149,7 +1144,7 @@ function guid() {
       var _this = this;
 
       return _.tap(guid(), function (id) {
-        _this.theData = [].concat(_toConsumableArray(_this.theData), [{ id: id, key: '', value: Array(_this.columnCount).join('.').split('.') }]);
+        _this.theData = [].concat(_toConsumableArray(_this.theData), [{ id: id, cells: Array(_this.columnCount).join('.').split('.') }]);
         return id;
       });
     },
@@ -1162,7 +1157,7 @@ function guid() {
       var _this2 = this;
 
       this.theData.forEach(function (_, index) {
-        _this2.theData[index].value.push('');
+        _this2.theData[index].cells.push('');
       });
     },
 
@@ -1193,9 +1188,9 @@ function guid() {
      * Remove the column from the table.
      */
     removeColumn: function removeColumn(index) {
-      return this.theData.map(function (data) {
-        data.value.splice(index - 1, 1);
-        return data;
+      return this.theData.map(function (row) {
+        row.cells.splice(index - 1, 1);
+        return row;
       });
     },
 
@@ -1221,12 +1216,13 @@ function guid() {
 
 
     /**
-     * Select the last field in a row with the given ref ID.
+     * Select the last cell in the first row.
      */
     selectColumn: function selectColumn() {
       var _this5 = this;
 
       return this.$nextTick(function () {
+        // prettier-ignore
         Object.values(_this5.$refs).map(function (ref) {
           return __WEBPACK_IMPORTED_MODULE_3_autosize___default()(ref[0].$refs.columnFields);
         })[0].slice(-1)[0].select();
@@ -1240,13 +1236,13 @@ function guid() {
      */
     finalPayload: function finalPayload() {
       return _(this.theData).map(function (row) {
-        return row && row.key ? [row.key, row.value] : undefined;
+        return row && row.cells && row.cells.length > 0 ? row.cells : undefined;
       }).reject(function (row) {
         return row === undefined;
-      }).fromPairs().value();
+      });
     },
     columnCount: function columnCount() {
-      return this.theData[0] ? this.theData[0].value.length : 1;
+      return this.theData[0] ? this.theData[0].cells.length : 1;
     }
   }
 });
@@ -28692,21 +28688,21 @@ var render = function() {
               _c(
                 "div",
                 { staticClass: "bg-white overflow-hidden key-value-items" },
-                _vm._l(_vm.theData, function(item, index) {
+                _vm._l(_vm.theData, function(row, index) {
                   return _c("KeyValueItem", {
-                    key: item.id,
-                    ref: item.id,
+                    key: row.id,
+                    ref: row.id,
                     refInFor: true,
                     attrs: {
                       "can-delete-row": _vm.field.canDeleteRow,
                       index: index,
-                      item: item,
                       "read-only": _vm.field.readonly,
-                      "read-only-keys": _vm.field.readonlyKeys
+                      "read-only-keys": _vm.field.readonlyKeys,
+                      row: row
                     },
                     on: {
-                      "update:item": function($event) {
-                        item = $event
+                      "update:row": function($event) {
+                        row = $event
                       },
                       "remove-row": _vm.removeRow
                     }

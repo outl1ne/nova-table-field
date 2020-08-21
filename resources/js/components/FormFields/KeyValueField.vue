@@ -6,13 +6,13 @@
           <KeyValueItem
             :can-delete-row="field.canDeleteRow"
             :index="index"
-            :item.sync="item"
-            :key="item.id"
+            :key="row.id"
             :read-only="field.readonly"
             :read-only-keys="field.readonlyKeys"
-            :ref="item.id"
+            :ref="row.id"
+            :row.sync="row"
             @remove-row="removeRow"
-            v-for="(item, index) in theData"
+            v-for="(row, index) in theData"
           />
         </div>
       </KeyValueTable>
@@ -73,10 +73,9 @@ export default {
   data: () => ({ theData: [] }),
 
   mounted() {
-    this.theData = _.map(this.value || {}, (value, key) => ({
+    this.theData = _.map(this.cells || {}, cells => ({
       id: guid(),
-      key,
-      value,
+      cells,
     }));
     if (this.theData.length === 0) {
       this.addRow();
@@ -97,7 +96,7 @@ export default {
      */
     addRow() {
       return _.tap(guid(), id => {
-        this.theData = [...this.theData, { id, key: '', value: Array(this.columnCount).join('.').split('.') }];
+        this.theData = [...this.theData, { id, cells: Array(this.columnCount).join('.').split('.') }];
         return id;
       });
     },
@@ -107,7 +106,7 @@ export default {
      */
     addColumn() {
       this.theData.forEach((_, index) => {
-        this.theData[index].value.push('');
+        this.theData[index].cells.push('');
       });
     },
 
@@ -132,9 +131,9 @@ export default {
      * Remove the column from the table.
      */
     removeColumn(index) {
-      return this.theData.map(data => {
-        data.value.splice(index - 1, 1);
-        return data;
+      return this.theData.map(row => {
+        row.cells.splice(index - 1, 1);
+        return row;
       });
     },
 
@@ -155,14 +154,12 @@ export default {
     },
 
     /**
-     * Select the last field in a row with the given ref ID.
+     * Select the last cell in the first row.
      */
     selectColumn() {
       return this.$nextTick(() => {
-        Object.values(this.$refs)
-          .map(ref => autosize(ref[0].$refs.columnFields))[0]
-          .slice(-1)[0]
-          .select();
+        // prettier-ignore
+        Object.values(this.$refs).map(ref => autosize(ref[0].$refs.columnFields))[0].slice(-1)[0].select();
       });
     },
   },
@@ -173,14 +170,12 @@ export default {
      */
     finalPayload() {
       return _(this.theData)
-        .map(row => (row && row.key ? [row.key, row.value] : undefined))
-        .reject(row => row === undefined)
-        .fromPairs()
-        .value();
+        .map(row => (row && row.cells && row.cells.length > 0 ? row.cells : undefined))
+        .reject(row => row === undefined);
     },
 
     columnCount() {
-      return this.theData[0] ? this.theData[0].value.length : 1;
+      return this.theData[0] ? this.theData[0].cells.length : 1;
     },
   },
 };
