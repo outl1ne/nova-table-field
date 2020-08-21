@@ -1,29 +1,45 @@
 {
-    "name": "optimistdigital/nova-tables",
-    "description": "A Laravel Nova field.",
-    "keywords": [
-        "laravel",
-        "nova"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": ">=7.1.0"
+  "name": "optimistdigital/nova-tables",
+  "description": "Table field for Laravel Nova",
+  "keywords": [
+    "laravel",
+    "nova",
+    "tables",
+    "optimistdigital"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kaspar Rosin",
+      "email": "kaspar.rosin@gmail.com",
+      "role": "Developer"
     },
-    "autoload": {
-        "psr-4": {
-            "Optimistdigital\\NovaTables\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Optimistdigital\\NovaTables\\FieldServiceProvider"
-            ]
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    {
+      "name": "Optimist Digital",
+      "email": "info@optimistdigital.com",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "laravel/nova": "^1.0 || ^2.0 || ^3.0",
+    "optimistdigital/nova-tailwind": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Optimistdigital\\NovaTables\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Optimistdigital\\NovaTables\\FieldServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

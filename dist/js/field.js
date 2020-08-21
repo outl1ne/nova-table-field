@@ -505,6 +505,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -891,9 +894,9 @@ var render = function() {
                   },
                   staticStyle: { "background-clip": "border-box" },
                   attrs: {
+                    disabled: !_vm.isEditable || _vm.readOnlyKeys,
                     dusk: "key-value-key-" + _vm.index,
-                    type: "text",
-                    disabled: !_vm.isEditable || _vm.readOnlyKeys
+                    type: "text"
                   },
                   domProps: { value: _vm.item.key },
                   on: {
@@ -933,9 +936,9 @@ var render = function() {
                     "hover:bg-20 focus:bg-white": _vm.isEditable
                   },
                   attrs: {
+                    disabled: !_vm.isEditable,
                     dusk: "key-value-value-" + _vm.index,
-                    type: "text",
-                    disabled: !_vm.isEditable
+                    type: "text"
                   },
                   domProps: { value: _vm.item.value },
                   on: {
@@ -965,8 +968,28 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "flex appearance-none cursor-pointer text-70 hover:text-primary active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline",
-                    attrs: { type: "button", tabindex: "-1", title: "Delete" },
+                      "btn dim cursor-pointer rounded-lg mx-auto text-primary rounded-b-lg flex justify-center",
+                    attrs: { tabindex: "-1", type: "button" }
+                  },
+                  [
+                    _c("icon", {
+                      attrs: {
+                        height: "24",
+                        type: "add",
+                        "view-box": "0 0 24 24",
+                        width: "24"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "flex appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline",
+                    attrs: { tabindex: "-1", title: "Delete", type: "button" },
                     on: {
                       click: function($event) {
                         return _vm.$emit("remove-row", _vm.item.id)
@@ -1110,7 +1133,7 @@ var render = function() {
     {
       staticClass:
         "relative rounded-lg rounded-b-lg bg-30 bg-clip border border-60",
-      class: { "mr-11": _vm.editMode && _vm.deleteRowEnabled }
+      class: { "mr-12": _vm.editMode && _vm.deleteRowEnabled }
     },
     [_vm._t("default")],
     2
@@ -28879,32 +28902,37 @@ var render = function() {
           ),
           _vm._v(" "),
           !_vm.field.readonly && !_vm.field.readonlyKeys && _vm.field.canAddRow
-            ? _c("div", { staticClass: "mr-11" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center",
-                    attrs: { type: "button" },
-                    on: { click: _vm.addRowAndSelect }
-                  },
-                  [
-                    _c("icon", {
-                      attrs: {
-                        height: "24",
-                        type: "add",
-                        "view-box": "0 0 24 24",
-                        width: "24"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "ml-1" }, [
-                      _vm._v(_vm._s(_vm.field.actionText))
-                    ])
-                  ],
-                  1
-                )
-              ])
+            ? _c(
+                "div",
+                { staticClass: "mr-12" },
+                [
+                  _c(
+                    "buttons",
+                    {
+                      staticClass:
+                        "btn dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex justify-center",
+                      attrs: { type: "button" },
+                      on: { click: _vm.addRowAndSelect }
+                    },
+                    [
+                      _c("icon", {
+                        attrs: {
+                          height: "24",
+                          type: "add",
+                          "view-box": "0 0 24 24",
+                          width: "24"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "ml-1" }, [
+                        _vm._v(_vm._s(_vm.field.actionText))
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             : _vm._e()
         ],
         1
