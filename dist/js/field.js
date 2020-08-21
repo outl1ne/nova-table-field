@@ -325,9 +325,9 @@ module.exports = __webpack_require__(5);
 /***/ (function(module, exports, __webpack_require__) {
 
 Nova.booting(function (Vue) {
-    // Nova Table Field...
-    Vue.component('detail-nova-tables-field', __webpack_require__(6));
-    Vue.component('form-nova-tables-field', __webpack_require__(16));
+  // Nova Table Field...
+  Vue.component('detail-nova-tables-field', __webpack_require__(6));
+  Vue.component('form-nova-tables-field', __webpack_require__(16));
 });
 
 /***/ }),
@@ -403,18 +403,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -447,9 +435,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_autosize__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_autosize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_autosize__);
-//
-//
-//
 //
 //
 //
@@ -1033,10 +1018,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -1275,15 +1256,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__KeyValueTable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__KeyValueTable__);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //

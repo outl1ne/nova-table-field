@@ -1,40 +1,31 @@
 <template>
   <default-field :errors="errors" :field="field" :full-width-content="true">
     <template slot="field">
-      <KeyValueTable
-          :can-delete-row="field.canDeleteRow"
-          :edit-mode="!field.readonly"
-      >
-        <KeyValueHeader
-            :key-label="field.keyLabel"
-            :value-label="field.valueLabel"
-        />
+      <KeyValueTable :can-delete-row="field.canDeleteRow" :edit-mode="!field.readonly">
+        <KeyValueHeader :key-label="field.keyLabel" :value-label="field.valueLabel" />
 
         <div class="bg-white overflow-hidden key-value-items">
           <KeyValueItem
-              :can-delete-row="field.canDeleteRow"
-              :index="index"
-              :item.sync="item"
-              :key="item.id"
-              :read-only="field.readonly"
-              :read-only-keys="field.readonlyKeys"
-              :ref="item.id"
-              @remove-row="removeRow"
-              v-for="(item, index) in theData"
+            :can-delete-row="field.canDeleteRow"
+            :index="index"
+            :item.sync="item"
+            :key="item.id"
+            :read-only="field.readonly"
+            :read-only-keys="field.readonlyKeys"
+            :ref="item.id"
+            @remove-row="removeRow"
+            v-for="(item, index) in theData"
           />
         </div>
       </KeyValueTable>
 
-      <div
-          class="mr-12"
-          v-if="!field.readonly && !field.readonlyKeys && field.canAddRow"
-      >
+      <div class="mr-12" v-if="!field.readonly && !field.readonlyKeys && field.canAddRow">
         <buttons
-            @click="addRowAndSelect"
-            class="btn dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex justify-center"
-            type="button"
+          @click="addRowAndSelect"
+          class="btn dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex justify-center"
+          type="button"
         >
-          <icon height="24" type="add" view-box="0 0 24 24" width="24"/>
+          <icon height="24" type="add" view-box="0 0 24 24" width="24" />
           <span class="ml-1">{{ field.actionText }}</span>
         </buttons>
       </div>
@@ -43,7 +34,7 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova';
+import { FormField, HandlesValidationErrors } from 'laravel-nova';
 import KeyValueItem from './KeyValueItem';
 import KeyValueHeader from './KeyValueHeader';
 import KeyValueTable from './KeyValueTable';
@@ -52,28 +43,15 @@ function guid() {
   var S4 = function () {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
-  return (
-      S4() +
-      S4() +
-      '-' +
-      S4() +
-      '-' +
-      S4() +
-      '-' +
-      S4() +
-      '-' +
-      S4() +
-      S4() +
-      S4()
-  );
+  return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
 }
 
 export default {
   mixins: [HandlesValidationErrors, FormField],
 
-  components: {KeyValueTable, KeyValueHeader, KeyValueItem},
+  components: { KeyValueTable, KeyValueHeader, KeyValueItem },
 
-  data: () => ({theData: []}),
+  data: () => ({ theData: [] }),
 
   mounted() {
     this.theData = _.map(this.value || {}, (value, key) => ({
@@ -101,7 +79,7 @@ export default {
      */
     addRow() {
       return _.tap(guid(), id => {
-        this.theData = [...this.theData, {id, key: '', value: ''}];
+        this.theData = [...this.theData, { id, key: '', value: '' }];
         return id;
       });
     },
@@ -118,8 +96,8 @@ export default {
      */
     removeRow(id) {
       return _.tap(
-          _.findIndex(this.theData, row => row.id == id),
-          index => this.theData.splice(index, 1),
+        _.findIndex(this.theData, row => row.id == id),
+        index => this.theData.splice(index, 1)
       );
     },
 
@@ -139,10 +117,10 @@ export default {
      */
     finalPayload() {
       return _(this.theData)
-          .map(row => (row && row.key ? [row.key, row.value] : undefined))
-          .reject(row => row === undefined)
-          .fromPairs()
-          .value();
+        .map(row => (row && row.key ? [row.key, row.value] : undefined))
+        .reject(row => row === undefined)
+        .fromPairs()
+        .value();
     },
   },
 };

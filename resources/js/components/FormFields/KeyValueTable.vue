@@ -19,5 +19,5 @@ export default {
       default: true,
     },
   },
-}
+};
 </script>
