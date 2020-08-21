@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-30 bg-clip border border-60" :class="{ 'mr-12': editMode && deleteRowEnabled }">
+  <div class="relative bg-30 bg-clip border border-60" :class="{ 'mr-12': editMode && canDelete }">
     <slot />
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   props: {
-    deleteRowEnabled: {
+    canDelete: {
       type: Boolean,
       default: true,
     },

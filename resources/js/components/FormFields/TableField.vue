@@ -1,23 +1,22 @@
 <template>
   <default-field :errors="errors" :field="field" :full-width-content="true">
     <template slot="field">
-      <KeyValueTable :can-delete-row="field.canDeleteRow" :edit-mode="!field.readonly">
+      <Table :can-delete="field.canDelete" :edit-mode="!field.readonly">
         <div class="bg-white overflow-hidden key-value-items">
-          <KeyValueItem
-            :can-delete-row="field.canDeleteRow"
+          <TableRow
+            :can-delete="field.canDelete"
             :index="index"
             :key="row.id"
             :read-only="field.readonly"
-            :read-only-keys="field.readonlyKeys"
             :ref="row.id"
             :row.sync="row"
             @remove-row="removeRow"
             v-for="(row, index) in theData"
           />
         </div>
-      </KeyValueTable>
-      <div class="relative mr-12 mt-3 flex">
-        <div class="flex flex-grow justify-center" v-for="n in columnCount">
+      </Table>
+      <div class="relative mr-12 mt-3 flex" v-if="field.canDelete">
+        <div class="flex flex-grow justify-center" v-for="n in numberOfColumns">
           <button
             @click="removeColumn(n)"
             class="appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline"
@@ -29,23 +28,24 @@
           </button>
         </div>
       </div>
-      <div class="mr-12 flex" v-if="!field.readonly && !field.readonlyKeys && field.canAddRow">
+      <div class="mr-12 flex" v-if="!field.readonly && field.canAdd">
         <button
           @click="addRowAndSelect"
           class="btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center"
           type="button"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
-          <span class="ml-1">{{ field.actionText }}</span>
+          <span class="ml-1">{{ __('novaTables.addRow') }}</span>
         </button>
         <button
           @click="addColumnAndSelect"
           class="btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center"
           tabindex="-1"
           type="button"
+          v-if="numberOfColumns > 0"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
-          <span class="ml-1">{{ 'Add Column' }}</span>
+          <span class="ml-1">{{ __('novaTables.addColumn') }}</span>
         </button>
       </div>
     </template>
@@ -54,9 +54,9 @@
 
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
-import KeyValueItem from './KeyValueItem';
-import KeyValueTable from './KeyValueTable';
+import TableRow from './TableRow';
 import autosize from 'autosize';
+import Table from './Table';
 
 function guid() {
   var S4 = function () {
@@ -68,17 +68,19 @@ function guid() {
 export default {
   mixins: [HandlesValidationErrors, FormField],
 
-  components: { KeyValueTable, KeyValueItem },
+  components: { Table, TableRow },
 
   data: () => ({ theData: [] }),
 
   mounted() {
-    this.theData = _.map(this.cells || {}, cells => ({
+    this.theData = _.map(this.value || {}, cells => ({
       id: guid(),
       cells,
     }));
     if (this.theData.length === 0) {
-      this.addRow();
+      for (let i = 0; i < (this.defaultAttributes.minRows || 1); i++) {
+        this.addRow();
+      }
     }
   },
 
@@ -95,8 +97,13 @@ export default {
      * Add a row to the table.
      */
     addRow() {
+      if (this.theData.length + 1 > this.defaultAttributes.maxRows)
+        return this.$toasted.show(this.__('novaTables.maxRowsError', { max: this.defaultAttributes.maxRows }), {
+          type: 'error',
+        });
+
       return _.tap(guid(), id => {
-        this.theData = [...this.theData, { id, cells: Array(this.columnCount).join('.').split('.') }];
+        this.theData = [...this.theData, { id, cells: Array(this.numberOfColumns).join('.').split('.') }];
         return id;
       });
     },
@@ -105,6 +112,11 @@ export default {
      * Add a column to the table.
      */
     addColumn() {
+      if (this.numberOfColumns + 1 > this.defaultAttributes.maxColumns)
+        return this.$toasted.show(this.__('novaTables.maxColumnsError', { max: this.defaultAttributes.maxColumns }), {
+          type: 'error',
+        });
+
       this.theData.forEach((_, index) => {
         this.theData[index].cells.push('');
       });
@@ -121,6 +133,11 @@ export default {
      * Remove the row from the table.
      */
     removeRow(id) {
+      if (this.theData.length - 1 < this.defaultAttributes.minRows)
+        return this.$toasted.show(this.__('novaTables.minRowsError', { min: this.defaultAttributes.minRows }), {
+          type: 'error',
+        });
+
       return _.tap(
         _.findIndex(this.theData, row => row.id === id),
         index => this.theData.splice(index, 1)
@@ -131,10 +148,22 @@ export default {
      * Remove the column from the table.
      */
     removeColumn(index) {
+      if (this.numberOfColumns - 1 < this.defaultAttributes.minColumns)
+        return this.$toasted.show(this.__('novaTables.minColumnsError', { min: this.defaultAttributes.minColumns }), {
+          type: 'error',
+        });
+
       return this.theData.map(row => {
         row.cells.splice(index - 1, 1);
         return row;
       });
+    },
+
+    /**
+     * Remove all columns and rows from the table.
+     */
+    removeTable() {
+      return (this.theData = []);
     },
 
     /**
@@ -159,7 +188,11 @@ export default {
     selectColumn() {
       return this.$nextTick(() => {
         // prettier-ignore
-        Object.values(this.$refs).map(ref => autosize(ref[0].$refs.columnFields))[0].slice(-1)[0].select();
+        console.log(Object.values(this.$refs).map(ref => ref));
+        Object.values(this.$refs)
+          .map(ref => autosize(ref[0].$refs.columnFields))[0]
+          .slice(-1)[0]
+          .select();
       });
     },
   },
@@ -174,8 +207,17 @@ export default {
         .reject(row => row === undefined);
     },
 
-    columnCount() {
-      return this.theData[0] ? this.theData[0].cells.length : 1;
+    defaultAttributes() {
+      return {
+        minRows: this.field.minRows || 1,
+        maxRows: this.field.maxRows,
+        minColumns: this.field.minColumns || 1,
+        maxColumns: this.field.maxColumns,
+      };
+    },
+
+    numberOfColumns() {
+      return this.theData[0] ? this.theData[0].cells.length : this.defaultAttributes.minColumns;
     },
   },
 };

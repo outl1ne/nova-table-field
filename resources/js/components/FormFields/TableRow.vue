@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center h-11 w-11 absolute" style="right: -50px;" v-if="isEditable && canDeleteRow">
+    <div class="flex justify-center h-11 w-11 absolute" style="right: -50px;" v-if="isEditable && canDelete">
       <button
         @click="$emit('remove-row', row.id)"
         class="flex appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline"
@@ -52,18 +52,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    readOnlyKeys: {
-      type: Boolean,
-      default: false,
-    },
-    canDeleteRow: {
+    canDelete: {
       type: Boolean,
       default: true,
     },
   },
 
   mounted() {
-    console.log('row', this.row);
     autosize(this.$refs.columnFields);
   },
 
