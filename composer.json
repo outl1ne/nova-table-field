@@ -18,6 +18,11 @@
       "name": "Optimist Digital",
       "email": "info@optimistdigital.com",
       "role": "Maintainer"
+    },
+    {
+      "name": "Tarvo Reinpalu",
+      "email": "tarvoreinpalu@gmail.com",
+      "role": "Developer"
     }
   ],
   "require": {
