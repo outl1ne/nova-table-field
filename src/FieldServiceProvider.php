@@ -2,10 +2,10 @@
 
 namespace Optimistdigital\NovaTableField;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Illuminate\Support\Facades\File;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -16,11 +16,11 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->translations();
-
         Nova::serving(function (ServingNova $event) {
             Nova::script('nova-table-field', __DIR__ . '/../dist/js/field.js');
         });
+
+        $this->translations();
     }
 
     protected function translations()
