@@ -32,13 +32,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Optimistdigital\\NovaTables\\": "src/"
+      "Optimistdigital\\NovaTableField\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Optimistdigital\\NovaTables\\FieldServiceProvider"
+        "Optimistdigital\\NovaTableField\\FieldServiceProvider"
       ]
     }
   },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimistdigital\NovaTables;
+namespace Optimistdigital\NovaTableField;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;

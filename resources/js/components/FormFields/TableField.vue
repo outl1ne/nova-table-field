@@ -35,7 +35,7 @@
           type="button"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
-          <span class="ml-1">{{ __('novaTables.addRow') }}</span>
+          <span class="ml-1">{{ __('novaTableField.addRow') }}</span>
         </button>
         <button
           @click="addColumnAndSelect"
@@ -45,7 +45,7 @@
           v-if="numberOfColumns > 0"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
-          <span class="ml-1">{{ __('novaTables.addColumn') }}</span>
+          <span class="ml-1">{{ __('novaTableField.addColumn') }}</span>
         </button>
       </div>
     </template>
@@ -98,7 +98,7 @@ export default {
      */
     addRow() {
       if (this.theData.length + 1 > this.defaultAttributes.maxRows)
-        return this.$toasted.show(this.__('novaTables.maxRowsError', { max: this.defaultAttributes.maxRows }), {
+        return this.$toasted.show(this.__('novaTableField.maxRowsError', { max: this.defaultAttributes.maxRows }), {
           type: 'error',
         });
 
@@ -113,9 +113,12 @@ export default {
      */
     addColumn() {
       if (this.numberOfColumns + 1 > this.defaultAttributes.maxColumns)
-        return this.$toasted.show(this.__('novaTables.maxColumnsError', { max: this.defaultAttributes.maxColumns }), {
-          type: 'error',
-        });
+        return this.$toasted.show(
+          this.__('novaTableField.maxColumnsError', { max: this.defaultAttributes.maxColumns }),
+          {
+            type: 'error',
+          }
+        );
 
       this.theData.forEach((_, index) => {
         this.theData[index].cells.push('');
@@ -134,7 +137,7 @@ export default {
      */
     removeRow(id) {
       if (this.theData.length - 1 < this.defaultAttributes.minRows)
-        return this.$toasted.show(this.__('novaTables.minRowsError', { min: this.defaultAttributes.minRows }), {
+        return this.$toasted.show(this.__('novaTableField.minRowsError', { min: this.defaultAttributes.minRows }), {
           type: 'error',
         });
 
@@ -149,9 +152,12 @@ export default {
      */
     removeColumn(index) {
       if (this.numberOfColumns - 1 < this.defaultAttributes.minColumns)
-        return this.$toasted.show(this.__('novaTables.minColumnsError', { min: this.defaultAttributes.minColumns }), {
-          type: 'error',
-        });
+        return this.$toasted.show(
+          this.__('novaTableField.minColumnsError', { min: this.defaultAttributes.minColumns }),
+          {
+            type: 'error',
+          }
+        );
 
       return this.theData.map(row => {
         row.cells.splice(index - 1, 1);
@@ -188,11 +194,7 @@ export default {
     selectColumn() {
       return this.$nextTick(() => {
         // prettier-ignore
-        console.log(Object.values(this.$refs).map(ref => ref));
-        Object.values(this.$refs)
-          .map(ref => autosize(ref[0].$refs.columnFields))[0]
-          .slice(-1)[0]
-          .select();
+        Object.values(this.$refs).map(ref => autosize(ref[0].$refs.columnFields))[0].slice(-1)[0].select();
       });
     },
   },

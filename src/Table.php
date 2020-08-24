@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimistdigital\NovaTables;
+namespace Optimistdigital\NovaTableField;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\Number;
