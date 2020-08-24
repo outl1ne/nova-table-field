@@ -23,7 +23,7 @@ composer require optimistdigital/nova-table-field
 
 The `Table` field provides a convenient interface to edit rows and columns stored inside `JSON` equivalent column.
 ```php
-use Optimistdigital\NovaTableField\Table;
+use OptimistDigital\NovaTableField\Table;
 
 public function fields(Request $request)
 {

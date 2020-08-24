@@ -1,6 +1,6 @@
 <?php
 
-namespace Optimistdigital\NovaTableField;
+namespace OptimistDigital\NovaTableField;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
