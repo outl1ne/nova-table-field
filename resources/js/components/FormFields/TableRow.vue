@@ -16,7 +16,7 @@
           :dusk="`key-value-value-${index}`"
           :key="cell.id"
           @focus="handleColumnFieldFocus(index)"
-          class="font-mono text-sm block min-h-input w-full foarm-control form-input form-input-row py-4 text-90"
+          class="font-mono text-sm block min-h-input w-full form-control form-input form-input-row py-4 text-90 min-h-full"
           ref="columnFields"
           v-model="row.cells[index]"
         />

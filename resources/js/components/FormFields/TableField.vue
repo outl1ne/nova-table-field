@@ -206,7 +206,8 @@ export default {
     finalPayload() {
       return _(this.theData)
         .map(row => (row && row.cells && row.cells.length > 0 ? row.cells : undefined))
-        .reject(row => row === undefined);
+        .reject(row => row === undefined)
+        .value();
     },
 
     defaultAttributes() {
