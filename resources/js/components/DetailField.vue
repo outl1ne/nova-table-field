@@ -22,7 +22,10 @@ export default {
   data: () => ({ theData: [] }),
 
   created() {
-    this.theData = _.map(this.field.value || {}, cells => ({ cells }));
+    let valuesArray = Array.isArray(this.field.value) ? this.field.value : JSON.parse(this.field.value);
+    if (!Array.isArray(valuesArray) || !valuesArray.length) valuesArray = [];
+
+    this.theData = _.map(valuesArray, cells => ({ cells }));
   },
 };
 </script>

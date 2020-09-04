@@ -4,45 +4,45 @@
       <Table :can-delete="field.canDelete" :edit-mode="!field.readonly">
         <div class="bg-white overflow-hidden key-value-items">
           <TableRow
+            v-for="(row, index) in theData"
+            :key="row.id"
+            :ref="row.id"
             :can-delete="field.canDelete"
             :index="index"
-            :key="row.id"
             :read-only="field.readonly"
-            :ref="row.id"
             :row.sync="row"
             @remove-row="removeRow"
-            v-for="(row, index) in theData"
           />
         </div>
       </Table>
-      <div class="relative mr-12 mt-3 flex" v-if="field.canDelete">
-        <div class="flex flex-grow justify-center" v-for="n in numberOfColumns">
+      <div v-if="field.canDelete" class="relative mr-12 mt-3 flex">
+        <div v-for="n in numberOfColumns" class="flex flex-grow justify-center">
           <button
-            @click="removeColumn(n)"
             class="appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline"
             tabindex="-1"
             title="Delete"
             type="button"
+            @click="removeColumn(n)"
           >
             <icon />
           </button>
         </div>
       </div>
-      <div class="mr-12 flex" v-if="!field.readonly && field.canAdd">
+      <div v-if="!field.readonly && field.canAdd" class="mr-12 flex">
         <button
-          @click="addRowAndSelect"
           class="btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center"
           type="button"
+          @click="addRowAndSelect"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
           <span class="ml-1">{{ __('novaTableField.addRow') }}</span>
         </button>
         <button
-          @click="addColumnAndSelect"
+          v-if="numberOfColumns > 0"
           class="btn btn-link dim cursor-pointer rounded-lg mx-auto text-primary mt-3 px-3 rounded-b-lg flex items-center"
           tabindex="-1"
           type="button"
-          v-if="numberOfColumns > 0"
+          @click="addColumnAndSelect"
         >
           <icon height="24" type="add" view-box="0 0 24 24" width="24" />
           <span class="ml-1">{{ __('novaTableField.addColumn') }}</span>
@@ -73,10 +73,14 @@ export default {
   data: () => ({ theData: [] }),
 
   mounted() {
-    this.theData = _.map(this.value || {}, cells => ({
+    let valuesArray = Array.isArray(this.field.value) ? this.value : JSON.parse(this.field.value);
+    if (!Array.isArray(valuesArray) || !valuesArray.length) valuesArray = [];
+
+    this.theData = _.map(valuesArray, cells => ({
       id: guid(),
       cells,
     }));
+
     if (this.theData.length === 0) {
       for (let i = 0; i < (this.defaultAttributes.minRows || 1); i++) {
         this.addRow();
