@@ -41,6 +41,11 @@ public function fields(Request $request)
 }
 ```
 
+Note that you also have to cast the `JSON` data to `array` in your model
+```
+protected $casts = ['countries' => 'array'];
+```
+
 ## Localization
 
 The translations file can be published by using the following publish command:
