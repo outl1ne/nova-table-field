@@ -48,6 +48,7 @@
           <span class="ml-1">{{ __('novaTableField.addColumn') }}</span>
         </button>
       </div>
+      <div v-if="field.helpText" class="help-text help-text mt-2" v-html="field.helpText"></div>
     </template>
   </default-field>
 </template>
