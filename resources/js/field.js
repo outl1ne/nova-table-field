@@ -1,5 +1,8 @@
-Nova.booting(Vue => {
+import DetailField from './components/DetailField.vue';
+import FormField from './components/FormFields/TableField.vue';
+
+Nova.booting(app => {
   // Nova Table Field...
-  Vue.component('detail-nova-table-field', require('./components/DetailField.vue'));
-  Vue.component('form-nova-table-field', require('./components/FormFields/TableField.vue'));
+  app.component('detail-nova-table-field', DetailField);
+  app.component('form-nova-table-field', FormField);
 });

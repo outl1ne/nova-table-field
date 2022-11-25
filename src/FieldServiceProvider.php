@@ -39,7 +39,7 @@ class FieldServiceProvider extends ServiceProvider
         }
     }
 
-    protected function attemptToLoadTranslations($locale, $from)
+    protected function attemptToLoadTranslations($locale, $from): bool
     {
         $filePath = $from === 'local'
             ? __DIR__ . '/../resources/lang/' . $locale . '.json'

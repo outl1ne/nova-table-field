@@ -1,13 +1,13 @@
 <template>
-  <panel-item :field="field">
-    <template slot="value">
+  <PanelItem :index="index" :field="field">
+    <template #value>
       <Table :edit-mode="false" class="overflow-hidden" v-if="theData.length > 0">
         <div class="bg-white overflow-hidden">
           <TableRow :disabled="true" :key="index" :row="row" v-for="(row, index) in theData" />
         </div>
       </Table>
     </template>
-  </panel-item>
+  </PanelItem>
 </template>
 
 <script>
