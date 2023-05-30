@@ -25,10 +25,16 @@
       "role": "Developer"
     }
   ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://nova.laravel.com"
+    }
+  ],
   "require": {
-    "php": ">=7.1.0",
-    "laravel/nova": "^1.0 || ^2.0 || ^3.0",
-    "optimistdigital/nova-tailwind": "^1.0"
+    "php": "^8.0",
+    "laravel/nova": "^4.16",
+    "nova-kit/nova-packages-tool": "^1.2"
   },
   "autoload": {
     "psr-4": {

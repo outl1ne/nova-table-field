@@ -23,15 +23,16 @@
       </div>
     </div>
 
-    <div class="flex justify-center h-11 w-11 absolute" style="right: -50px;" v-if="isEditable && canDelete">
+    <div class="flex justify-center h-11 w-11 absolute" style="right: -40px" v-if="isEditable && canDelete">
       <button
         @click="$emit('remove-row', row.id)"
         class="flex appearance-none cursor-pointer text-70 hover:text-danger active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline"
+        style="align-items: center"
         tabindex="-1"
         title="Delete"
         type="button"
       >
-        <icon />
+        <icon type="trash" />
       </button>
     </div>
   </div>
