@@ -39,10 +39,10 @@ class Table extends Field
     /**
      * The minimum number of rows in the table.
      *
-     * @param mixed $min
+     * @param  mixed  $min
      * @return $this
      */
-    public function minRows($min)
+    public function minRows($min): static
     {
         return $this->withMeta(['minRows' => $min]);
     }
@@ -50,10 +50,10 @@ class Table extends Field
     /**
      * The maximum number of rows in the table.
      *
-     * @param mixed $max
+     * @param  mixed  $max
      * @return $this
      */
-    public function maxRows($max)
+    public function maxRows($max): static
     {
         return $this->withMeta(['maxRows' => $max]);
     }
@@ -61,10 +61,10 @@ class Table extends Field
     /**
      * The minimum number of columns in the table.
      *
-     * @param mixed $min
+     * @param  mixed  $min
      * @return $this
      */
-    public function minColumns($min)
+    public function minColumns($min): static
     {
         return $this->withMeta(['minColumns' => $min]);
     }
@@ -72,10 +72,10 @@ class Table extends Field
     /**
      * The maximum number of columns in the table.
      *
-     * @param mixed $max
+     * @param  mixed  $max
      * @return $this
      */
-    public function maxColumns($max)
+    public function maxColumns($max): static
     {
         return $this->withMeta(['maxColumns' => $max]);
     }
@@ -85,7 +85,7 @@ class Table extends Field
      *
      * @return $this
      */
-    public function disableAdding()
+    public function disableAdding(): static
     {
         $this->canAdd = false;
 
@@ -97,7 +97,7 @@ class Table extends Field
      *
      * @return $this
      */
-    public function disableDeleting()
+    public function disableDeleting(): static
     {
         $this->canDelete = false;
 
@@ -120,7 +120,7 @@ class Table extends Field
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge(parent::jsonSerialize(), [
             'canAdd' => $this->canAdd,
@@ -131,13 +131,13 @@ class Table extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param NovaRequest $request
-     * @param string $requestAttribute
-     * @param object $model
-     * @param string $attribute
+     * @param  NovaRequest  $request
+     * @param  string  $requestAttribute
+     * @param  object  $model
+     * @param  string  $attribute
      * @return void
      */
-    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute): void
     {
         if ($request->exists($requestAttribute)) {
             $model->{$attribute} = json_decode($request[$requestAttribute], true);

@@ -1,6 +1,11 @@
 <template>
-  <default-field :errors="errors" :field="field" :full-width-content="true">
-    <template slot="field">
+  <DefaultField
+    :field="currentField"
+    :errors="errors"
+    :show-help-text="showHelpText"
+    :full-width-content="currentField.fullWidth"
+  >
+    <template #field>
       <Table :can-delete="field.canDelete" :edit-mode="!field.readonly">
         <div class="bg-white overflow-hidden key-value-items">
           <TableRow
@@ -24,7 +29,7 @@
             type="button"
             @click="removeColumn(n)"
           >
-            <icon />
+            <icon type="trash" />
           </button>
         </div>
       </div>
@@ -34,7 +39,7 @@
           type="button"
           @click="addRowAndSelect"
         >
-          <icon height="24" type="add" view-box="0 0 24 24" width="24" />
+          <icon height="24" type="plus" view-box="0 0 24 24" width="24" />
           <span class="ml-1">{{ __('novaTableField.addRow') }}</span>
         </button>
         <button
@@ -44,13 +49,13 @@
           type="button"
           @click="addColumnAndSelect"
         >
-          <icon height="24" type="add" view-box="0 0 24 24" width="24" />
+          <icon height="24" type="plus" view-box="0 0 24 24" width="24" />
           <span class="ml-1">{{ __('novaTableField.addColumn') }}</span>
         </button>
       </div>
       <div v-if="field.helpText" class="help-text help-text mt-2" v-html="field.helpText"></div>
     </template>
-  </default-field>
+  </DefaultField>
 </template>
 
 <script>
@@ -60,7 +65,7 @@ import autosize from 'autosize';
 import Table from './Table';
 
 function guid() {
-  var S4 = function () {
+  const S4 = function () {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
   return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
