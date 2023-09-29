@@ -1,7 +1,7 @@
 # Nova Table Field
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/optimistdigital/nova-table-field.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-table-field)
-[![Total Downloads](https://img.shields.io/packagist/dt/optimistdigital/nova-table-field.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-table-field)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/outl1ne/nova-table-field.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-table-field)
+[![Total Downloads](https://img.shields.io/packagist/dt/outl1ne/nova-table-field.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-table-field)
 
 Simple [Laravel Nova](https://nova.laravel.com) Table field.
 
@@ -16,14 +16,14 @@ Simple [Laravel Nova](https://nova.laravel.com) Table field.
 Install the package in a Laravel Nova project via Composer:
 
 ```bash
-composer require optimistdigital/nova-table-field
+composer require outl1ne/nova-table-field
 ```
 
 ## Usage
 
 The `Table` field provides a convenient interface to edit rows and columns stored inside `JSON` equivalent column.
 ```php
-use OptimistDigital\NovaTableField\Table;
+use Outl1ne\NovaTableField\Table;
 
 public function fields(Request $request)
 {
@@ -55,7 +55,7 @@ protected $casts = ['countries' => 'array'];
 The translations file can be published by using the following publish command:
 
 ```bash
-php artisan vendor:publish --provider="OptimistDigital\NovaTableField\FieldServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Outl1ne\NovaTableField\FieldServiceProvider" --tag="translations"
 ```
 
 You can then edit the strings to your liking.
