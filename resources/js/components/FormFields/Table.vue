@@ -15,6 +15,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    defaultValues: {
+      type: Object,
+      default: () => [],
+    }
   },
 };
 </script>

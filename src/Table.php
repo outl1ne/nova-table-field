@@ -105,6 +105,17 @@ class Table extends Field
     }
 
     /**
+     * Set the default values for the table.
+     *
+     * @param array $values
+     * @return $this
+     */
+    public function defaultValues($values): self
+    {
+        return $this->withMeta(['defaultValues' => $values]);
+    }
+
+    /**
      * Prepare the field element for JSON serialization.
      *
      * @return array

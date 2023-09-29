@@ -37,6 +37,10 @@ public function fields(Request $request)
         ->maxRows(10) // The maximum number of rows in the table
         ->minColumns(1) // The minimum number of columns in the table
         ->maxColumns(10) // The maximum number of columns in the table
+        ->defaultValues([ // Default values for new rows
+            ['column_1', 'column_2'], // This is a row
+            ['column_3', 'column_4'], // This is a row
+        ])
     ];
 }
 ```
