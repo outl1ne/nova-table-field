@@ -1,0 +1,32 @@
+resources/js/components/FormFields/TableField.vue
+  s_c7f735bf745920::t_af47030d324a6c 62
+  s_c7f735bf745920::t_46072ef604a70d 77
+  s_c7f735bf745920::t_cea2c16c016b4f 10,23-30,34,37-44,46-47,49,52-53
+tailwind.config.js
+  s_c7f735bf745920::t_bb9178667d9616 3-12,21-28
+  s_c7f735bf745920::t_059b248798597e 16-20
+resources/js/components/FormFields/TableRow.vue
+  s_c7f735bf745920::t_1b9a1d437a2f13 2-3,7-8,12,14-15,18,26-30,32-37,40,47,50-51,83-91
+dist/mix-manifest.json
+  s_c7f735bf745920::t_54c2c1babfefe1 2-3
+dist/css/entry.css
+  s_c7f735bf745920::t_de4f96af65133a 1
+resources/js/components/FormFields/Table.vue
+  s_c7f735bf745920::t_c14e706cefa15c 2-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "8362f88e90bce0bb25b0598c12ba8b1966305276",
+  "prompts": {},
+  "sessions": {
+    "s_c7f735bf745920": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd1f9ab8-75da-4c8b-af24-9888e9a15ac0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
